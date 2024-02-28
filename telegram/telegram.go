@@ -2,10 +2,17 @@ package telegram
 
 import (
 	"fmt"
+	"time"
 
 	tg_bot "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/sirupsen/logrus"
 )
+
+type IReciever interface {
+	Handle(payload *tg_bot.Message) (*tg_bot.MessageConfig, error)
+	GetOffset() int
+	GetTimeout() time.Duration
+}
 
 type Telegram struct {
 	api      *tg_bot.BotAPI
