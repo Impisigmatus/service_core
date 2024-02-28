@@ -5,9 +5,7 @@ go 1.22.0
 require (
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
-	github.com/golang/mock v1.6.0
 	github.com/jackc/pgx/v4 v4.18.1
-	github.com/jmoiron/sqlx v1.3.5
 	github.com/json-iterator/go v1.1.12
 	github.com/sirupsen/logrus v1.9.3
 )
