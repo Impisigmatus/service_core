@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 .vscode/
 vendor/
 autogen/
 logs/
+=======
+vendor/
+>>>>>>> 332443e02a9e029b469620ad1f8750d73a39ca8f
