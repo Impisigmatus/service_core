@@ -2,3 +2,4 @@
 vendor/
 autogen/
 logs/
+main.go
