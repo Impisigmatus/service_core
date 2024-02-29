@@ -1,1 +1,4 @@
+.vscode/
 vendor/
+autogen/
+logs/

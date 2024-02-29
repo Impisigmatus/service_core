@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Impisigmatus/service_core/log"
 	chi "github.com/go-chi/chi/v5/middleware"
-	"github.com/sirupsen/logrus"
 )
 
 type logger struct{}
@@ -25,11 +25,11 @@ type entry struct {
 }
 
 func (e *entry) Write(status int, _ int, header http.Header, duration time.Duration, extra interface{}) {
-	logrus.Infof("%s %s | %s | %s | %d %s", e.Method, e.Path, e.Hostname, duration, status, http.StatusText(status))
+	log.Infof("%s %s | %s | %s | %d %s", e.Method, e.Path, e.Hostname, duration, status, http.StatusText(status))
 }
 
 func (e *entry) Panic(v interface{}, stack []byte) {
-	logrus.Errorf("panic occured panic: %+v stack:%s, ", v, stack)
+	log.Errorf("panic occured panic: %+v stack:%s, ", v, stack)
 }
 
 type middleware struct {

@@ -2,33 +2,27 @@ package postgres
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/Impisigmatus/service_core/log"
 	"github.com/jackc/pgx/v4"
-	"github.com/sirupsen/logrus"
 )
 
 type pgxLogger struct{}
 
 func (*pgxLogger) Log(ctx context.Context, level pgx.LogLevel, msg string, data map[string]interface{}) {
-	var logger logrus.FieldLogger
-	if data != nil {
-		logger = logrus.StandardLogger().WithFields(data)
-	} else {
-		logger = logrus.StandardLogger()
-	}
-
 	switch level {
 	case pgx.LogLevelTrace:
-		logger.WithField("PGX_LOG_LEVEL", level).Debug(msg)
+		log.Trace(msg)
 	case pgx.LogLevelDebug:
-		logger.Debug(msg)
+		log.Debug(msg)
 	case pgx.LogLevelInfo:
-		logger.Info(msg)
+		log.Info(msg)
 	case pgx.LogLevelWarn:
-		logger.Warn(msg)
+		log.Warning(msg)
 	case pgx.LogLevelError:
-		logger.Error(msg)
+		log.Error("", fmt.Errorf("%s", msg))
 	default:
-		logger.WithField("INVALID_PGX_LOG_LEVEL", level).Error(msg)
+		log.Error("", fmt.Errorf("INVALID_PGX_LOG_LEVEL"))
 	}
 }
