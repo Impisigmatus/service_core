@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/Impisigmatus/service_core/log"
 	jsoniter "github.com/json-iterator/go"
-	"github.com/sirupsen/logrus"
 )
 
 func WriteNoContent(w http.ResponseWriter) {
@@ -19,14 +19,14 @@ func WriteString(w http.ResponseWriter, status int, err error, str string, args 
 	)
 
 	if err != nil {
-		logrus.Error(err)
+		log.Error("", err)
 	}
 
 	w.Header().Set(header, content)
 	w.WriteHeader(status)
 
 	if _, err := w.Write([]byte(fmt.Sprintf(str, args...))); err != nil {
-		logrus.Errorf("Invalid write response body: %s", err)
+		log.Error("Invalid write response body", err)
 	}
 }
 
@@ -46,6 +46,6 @@ func WriteObject(w http.ResponseWriter, obj interface{}) {
 	}
 
 	if _, err := w.Write(data); err != nil {
-		logrus.Errorf("Invalid write response body: %s", err)
+		log.Error("Invalid write response body", err)
 	}
 }

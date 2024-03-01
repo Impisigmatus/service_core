@@ -4,9 +4,10 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/Impisigmatus/service_core/log"
+
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/stdlib"
-	"github.com/sirupsen/logrus"
 )
 
 type Config struct {
@@ -27,18 +28,18 @@ func NewPostgres(cfg Config) *sql.DB {
 
 	config, err := pgx.ParseConfig(pattern)
 	if err != nil {
-		logrus.Panicf("Invalid postgres config: %s", err)
+		log.Panicf("Invalid postgres config: %s", err)
 	}
 	config.Logger = &pgxLogger{}
 
 	connection := stdlib.RegisterConnConfig(config)
 	db, err := sql.Open(driver, connection)
 	if err != nil {
-		logrus.Panicf("Invalid postgres connect: %s", err)
+		log.Panicf("Invalid postgres connect: %s", err)
 	}
 
 	if err := db.Ping(); err != nil {
-		logrus.Panicf("Invalid postgres ping: %s", err)
+		log.Panicf("Invalid postgres ping: %s", err)
 	}
 
 	return db

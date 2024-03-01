@@ -1,1 +1,7 @@
+.vscode/
+.env.local
+__debug_bin**
 vendor/
+autogen/
+logs/
+main.go
