@@ -29,14 +29,13 @@ type telegramHook struct {
 }
 
 func NewTelegramHook(lvl log.Level, token string, chatID string) zerolog.Hook {
-	logger := slog.New(slogtelegram.Option{
-		Level:    toSlog[lvl.Zerolog()],
-		Token:    token,
-		Username: chatID,
-	}.NewTelegramHandler())
 	return &telegramHook{
-		lvl:    lvl.Zerolog(),
-		logger: logger,
+		lvl: lvl.Zerolog(),
+		logger: slog.New(slogtelegram.Option{
+			Level:    toSlog[lvl.Zerolog()],
+			Token:    token,
+			Username: chatID,
+		}.NewTelegramHandler()),
 	}
 }
 
