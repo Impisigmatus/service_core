@@ -29,7 +29,7 @@ func (e *entry) Write(status int, _ int, header http.Header, duration time.Durat
 }
 
 func (e *entry) Panic(v interface{}, stack []byte) {
-	log.Errorf("panic occured panic: %+v stack:%s, ", v, stack)
+	log.Errorf("panic occurred panic: %+v stack:%s, ", v, stack)
 }
 
 type middleware struct {

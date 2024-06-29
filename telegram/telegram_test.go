@@ -12,8 +12,8 @@ func Test_Telegram(t *testing.T) {
 	defer ctrl.Finish()
 
 	api := mocks.NewMock_ITelegramAPI(ctrl)
-	reciever := mocks.NewMockIReciever(ctrl)
-	tg := newTelegram(api, reciever)
+	receiver := mocks.NewMockIReciever(ctrl)
+	tg := newTelegram(api, receiver)
 	_ = tg
 
 	t.Run("Send()", func(t *testing.T) {

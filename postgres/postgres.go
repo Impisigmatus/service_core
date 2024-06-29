@@ -5,7 +5,6 @@ import (
 	"fmt"
 
 	"github.com/Impisigmatus/service_core/log"
-
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/stdlib"
 )

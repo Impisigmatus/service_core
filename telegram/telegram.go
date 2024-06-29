@@ -22,25 +22,25 @@ type _ITelegramAPI interface {
 
 type Telegram struct {
 	api      _ITelegramAPI
-	reciever IReciever
+	receiver IReciever
 }
 
-func New(token string, reciever IReciever) *Telegram {
-	if reciever == nil {
-		log.Panicf("Invalid init: reciever is nil")
+func New(token string, receiver IReciever) *Telegram {
+	if receiver == nil {
+		log.Panicf("Invalid init: receiver is nil")
 	}
 	api, err := tg_bot.NewBotAPI(token)
 	if err != nil {
 		log.Panicf("Invalid telegram api: %s", err)
 	}
 
-	tg := newTelegram(api, reciever)
+	tg := newTelegram(api, receiver)
 	tg.consume()
 	return tg
 }
 
-func newTelegram(api _ITelegramAPI, reciever IReciever) *Telegram {
-	return &Telegram{api: api, reciever: reciever}
+func newTelegram(api _ITelegramAPI, receiver IReciever) *Telegram {
+	return &Telegram{api: api, receiver: receiver}
 }
 
 func (tg *Telegram) Send(chatID uint64, data string) error {
@@ -54,13 +54,13 @@ func (tg *Telegram) Send(chatID uint64, data string) error {
 
 func (tg *Telegram) consume() {
 	go func() {
-		updater := tg_bot.NewUpdate(tg.reciever.GetOffset())
-		updater.Timeout = int(tg.reciever.GetTimeout().Seconds())
+		updater := tg_bot.NewUpdate(tg.receiver.GetOffset())
+		updater.Timeout = int(tg.receiver.GetTimeout().Seconds())
 		updates := tg.api.GetUpdatesChan(updater)
 
 		for update := range updates {
 			if update.Message != nil {
-				msg, err := tg.reciever.Handle(update.Message)
+				msg, err := tg.receiver.Handle(update.Message)
 				if err != nil {
 					log.Error("Invalid handle msg", err)
 					continue
