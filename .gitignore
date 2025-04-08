@@ -1,4 +1,5 @@
 .vscode/
+.reports/
 .env.local
 __debug_bin**
 vendor/

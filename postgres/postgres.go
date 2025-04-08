@@ -4,13 +4,14 @@ import (
 	"database/sql"
 	"fmt"
 
-	"github.com/Impisigmatus/service_core/log"
-
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/stdlib"
+	"github.com/rs/zerolog"
 )
 
 type Config struct {
+	Logger zerolog.Logger
+
 	Hostname string
 	Port     uint64
 	Database string
@@ -28,18 +29,17 @@ func NewPostgres(cfg Config) *sql.DB {
 
 	config, err := pgx.ParseConfig(pattern)
 	if err != nil {
-		log.Panicf("Invalid postgres config: %s", err)
+		cfg.Logger.Panic().Msgf("Invalid postgres config: %s", err)
 	}
-	config.Logger = &pgxLogger{}
 
 	connection := stdlib.RegisterConnConfig(config)
 	db, err := sql.Open(driver, connection)
 	if err != nil {
-		log.Panicf("Invalid postgres connect: %s", err)
+		cfg.Logger.Panic().Msgf("Invalid postgres connect: %s", err)
 	}
 
 	if err := db.Ping(); err != nil {
-		log.Panicf("Invalid postgres ping: %s", err)
+		cfg.Logger.Panic().Msgf("Invalid postgres ping: %s", err)
 	}
 
 	return db

@@ -1,0 +1,253 @@
+linters:
+  # Enable all available linters.
+  enable-all: true
+
+  # Disable the following linters.
+  disable:
+    # Tool to detect Go structs that would take less memory if their fields were sorted.
+    # https://github.com/mdempsky/maligned.
+    # deprecated (since v1.38.0).
+    - maligned
+
+    # A linter that suggests interface types.
+    # https://github.com/mvdan/interfacer.
+    # Deprecated (since v1.38.0).
+    - interfacer
+
+    # Checks for unpinned variables in go programs.
+    # https://github.com/kyoh86/scopelint.
+    # Deprecated (since v1.39.0).
+    - scopelint
+
+    # https://github.com/golang/lint.
+    # Deprecated (since v1.41.0).
+    - golint
+
+    # Static analysis tool to find structs that have uninitialized fields.
+    # https://github.com/mbilski/exhaustivestruct.
+    # Deprecated (since v1.46.0).
+    - exhaustivestruct
+
+    # Go linter for checking that your code uses short syntax for if-statements whenever possible.
+    # https://github.com/esimonov/ifshort.
+    # Deprecated (since v1.48.0).
+    - ifshort
+
+    # Detects snake case of variable naming and function name.
+    # https://github.com/sivchari/nosnakecase.
+    # Deprecated (since v.48.1).
+    - nosnakecase
+
+    # Utility which detects unused declarations in a Go package.
+    # https://github.com/remyoudompheng/go-misc/tree/master/deadcode.
+    # Deprecated (since v1.49.0).
+    - deadcode
+
+    # A set of utilities for checking Go sources.
+    # https://github.com/opennota/check.
+    # Deprecated (since v1.49.0).
+    - varcheck
+
+    # A set of utilities for checking Go sources.
+    # https://github.com/opennota/check.
+    # Deprecated (since v1.49.0).
+    - structcheck
+
+    # Checks for a new line before return and branch statements to increase code clarity.
+    # https://github.com/ssgreg/nlreturn.
+    # Методы и функции должны быть маленькими и компактными.
+    # Если ваш кусок кода нуждается в разбиении на логические куски пустыми строками,
+    # разбейте этот код на несколько более мелких понятных функций.
+    # https://www.yegor256.com/2014/11/03/empty-line-code-smell.html.
+    - nlreturn
+
+    # WSL is a linter that enforces a very non-scientific vision of how to make code
+    # more readable by enforcing empty lines at the right places.
+    # https://github.com/bombsimon/wsl.
+    # Методы и функции должны быть маленькими и компактными.
+    # Если ваш кусок кода нуждается в разбиении на логические куски пустыми строками,
+    # разбейте этот код на несколько более мелких понятных функций.
+    # https://www.yegor256.com/2014/11/03/empty-line-code-smell.html.
+    - wsl
+
+    # Checks if all structure fields are initialized.
+    # https://github.com/GaijinEntertainment/go-exhaustruct.
+    # Довольно много случаев, когда пустые поля структур не являются обязательными.
+    # Особенно полезно отключать в тестах.
+    - exhaustruct
+
+    # Checks the struct tags.
+    # https://github.com/ldez/tagliatelle.
+    # Львиная доля срабатываний приходится на описание json-тегов в структурах,
+    # которые описывают внешние модели данных.
+    - tagliatelle
+
+    # Check declaration order and count of types, constants, variables and functions.
+    # https://gitlab.com/bosi/decorder.
+    # Сочли неудобным.
+    - decorder
+
+    # Accept Interfaces, Return Concrete Types.
+    # https://github.com/butuzov/ireturn.
+    # Не всегда возможно и нужно возвращать конкретный тип.
+    # Соглашение следующее.
+    # Если название метода начинается со слова resolve, то возвращаем интерфейс.
+    # Если название метода начинается со слов New или Make, то возвращаем конкретный тип.
+    - ireturn
+
+    # Checks package imports are in a list of acceptable packages.
+    # https://github.com/OpenPeeDeeP/depguard.
+    # Пока не накопили базу знаний.
+    - depguard
+
+linters-settings:
+  cyclop:
+    # The maximal code complexity to report.
+    # Default: 10.
+    max-complexity: 5
+    # The maximal average package complexity.
+    # If it's higher than 0.0 (float) the check is enabled.
+    # Default: 0.0.
+    package-average: 5.2
+    # Should ignore tests.
+    # Default: false.
+    skip-tests: false
+
+  dupl:
+    # Tokens count to trigger issue.
+    # Default: 150.
+    threshold: 100
+
+  funlen:
+    # Checks the number of lines in a function.
+    # If lower than 0, disable the check.
+    # Default: 60.
+    lines: 30
+    # Checks the number of statements in a function.
+    # If lower than 0, disable the check.
+    # Default: 40.
+    statements: 20
+
+  gocognit:
+    # Minimal code complexity to report.
+    # Default: 30 (but we recommend 10-20).
+    min-complexity: 10
+
+  gocyclo:
+    # Minimal code complexity to report.
+    # Default: 30 (but we recommend 10-20).
+    min-complexity: 10
+
+  lll:
+    # Max line length, lines longer will be reported.
+    # Default: 120.
+    line-length: 120
+    # Tab width in spaces.
+    # Default: 1.
+    tab-width: 4
+
+  maintidx:
+    # Show functions with maintainability index lower than N.
+    # A high index indicates better maintainability (it's kind of the opposite of complexity).
+    # Default: 20.
+    under: 20
+
+  nolintlint:
+    # Disable to ensure that all nolint directives actually have an effect.
+    # Default: false.
+    allow-unused: false
+    # Exclude following linters from requiring an explanation.
+    # Default: [].
+    allow-no-explanation: []
+    # Enable to require an explanation of nonzero length after each nolint directive.
+    # Default: false.
+    require-explanation: true
+    # Enable to require nolint directives to mention the specific linter being suppressed.
+    # Default: false.
+    require-specific: true
+
+  varnamelen:
+    # The longest distance, in source lines, that is being considered a "small scope".
+    # Variables used in at most this many lines will be ignored.
+    # Default: 5.
+    max-distance: 5
+    # The minimum length of a variable's name that is considered "long".
+    # Variable names that are at least this long will be ignored.
+    # Default: 3.
+    min-name-length: 2
+    # Check method receivers.
+    # Default: false.
+    check-receiver: false
+    # Check named return values.
+    # Default: false.
+    check-return: true
+    # Check type parameters.
+    # Default: false.
+    check-type-param: true
+    # Ignore "ok" variables that hold the bool return value of a type assertion.
+    # Default: false.
+    ignore-type-assert-ok: false
+    # Ignore "ok" variables that hold the bool return value of a map index.
+    # Default: false.
+    ignore-map-index-ok: false
+    # Ignore "ok" variables that hold the bool return value of a channel receive.
+    # Default: false.
+    ignore-chan-recv-ok: false
+    # Optional list of variable names that should be ignored completely.
+    # Default: [].
+    ignore-names: [
+      # Request.
+      r,
+      # Generic type.
+      T,
+    ]
+    # Optional list of variable declarations that should be ignored completely.
+    # Default: [].
+    ignore-decls:
+      - t testing.T
+
+  wrapcheck:
+    # An array of strings that specify substrings of signatures to ignore.
+    # If this set, it will override the default set of ignored signatures.
+    # See https://github.com/tomarrell/wrapcheck#configuration for more information.
+    ignoreSigs:
+    - .Errorf(
+    - errors.New(
+    - errors.Unwrap(
+    - .Wrap(
+    - .Wrapf(
+    - .WithMessage(
+    - .WithMessagef(
+    - .WithStack(
+    - (github.com/labstack/echo/v4.Context).
+    # An array of strings that specify regular expressions of signatures to ignore.
+    # Default: []
+    ignoreSigRegexps: []
+    # An array of strings that specify globs
+    # of packages to ignore.
+    # Default: []
+    ignorePackageGlobs: []
+    # An array of strings that specify regular expressions of interfaces to ignore.
+    # Default: []
+    ignoreInterfaceRegexps: []
+
+issues:
+  # List of regexps of issue texts to exclude.
+  #
+  # But independently of this option we use default exclude patterns,
+  # it can be disabled by `exclude-use-default: false`.
+  # To list all excluded by default patterns execute `golangci-lint run --help`
+  #
+  # Default: https://golangci-lint.run/usage/false-positives/#default-exclusions
+  # Excluding configuration per-path, per-linter, per-text and per-source
+  exclude-rules:
+  # Exclude some linters from running on tests files.
+    - path: _test\.go
+      linters:
+        # В объемных тестах довольно сложно решить проблему "дублирования",
+        # поскольку приходится добавлять слишком много сахара,
+        # что не придает гибкости и понятности.
+        - dupl
+        - funlen
+        # В тестах допустимо иметь *статичные* глобальные переменные.
+        - gochecknoglobals
