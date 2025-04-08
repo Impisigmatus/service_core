@@ -39,7 +39,7 @@ func NewTelegramHook(lvl log.Level, token string, chatID string) zerolog.Hook {
 	}
 }
 
-func (hook *telegramHook) Run(event *zerolog.Event, lvl zerolog.Level, message string) {
+func (hook *telegramHook) Run(_ *zerolog.Event, lvl zerolog.Level, message string) {
 	if lvl >= hook.lvl {
 		timestamp := time.Now()
 		hook.logger.

@@ -16,7 +16,8 @@ type fileHook struct {
 }
 
 func NewFileHook(lvl log.Level, path string) zerolog.Hook {
-	file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0o644)
+	const permission = 0o644
+	file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY|os.O_CREATE, permission)
 	if err != nil {
 		panic(err)
 	}
@@ -26,7 +27,7 @@ func NewFileHook(lvl log.Level, path string) zerolog.Hook {
 	}
 }
 
-func (hook *fileHook) Run(event *zerolog.Event, lvl zerolog.Level, msg string) {
+func (hook *fileHook) Run(_ *zerolog.Event, lvl zerolog.Level, msg string) {
 	if lvl >= hook.lvl {
 		msg = "{\"lvl\":\"" + strings.ToUpper(lvl.String()) +
 			"\",\"dt\":\"" + time.Now().Format(time.DateTime) +
